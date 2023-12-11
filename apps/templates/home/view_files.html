@@ -1,0 +1,135 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} View File List {% endblock title %}
+
+{% block content %}
+
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">View Files</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">My Files</h3>
+                </div>
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="sort" data-sort="name">Resume</th>
+                            <th scope="col" class="sort" data-sort="budget">Internship Certificate</th>
+                            <th scope="col" class="sort" data-sort="status">Course Certificate</th>
+                            <th scope="col">Other Certificate</th>
+                        </tr>
+                        </thead>
+                        <tbody class="list">
+                        {% for file in media %}
+                            <tr>
+                                <td>
+                                    {% if file.resume %}
+                                        <a href="{% url 'view_files' file.resume %}"
+                                           target="_blank">{{ file.resume |cut:'resume/' }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if file.internship_certificate %}
+                                        <a href="{% url 'view_files' file.internship_certificate %}"
+                                           target="_blank">{{ file.internship_certificate |cut:'internship_certificate/' }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if file.courses_completed %}
+                                        <a href="{% url 'view_files' file.courses_completed %}"
+                                           target="_blank">{{ file.courses_completed |cut:'courses_completed/' }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if file.other_certificate %}
+                                        <a href="{% url 'view_files' file.other_certificate %}"
+                                           target="_blank">{{ file.other_certificate |cut:'other_certificate/' }}</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Shared Files</h3>
+                </div>
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="sort" data-sort="name">Shared User</th>
+                            <th scope="col" class="sort" data-sort="name">Resume</th>
+                            <th scope="col" class="sort" data-sort="budget">Internship Certificate</th>
+                            <th scope="col" class="sort" data-sort="status">Course Certificate</th>
+                            <th scope="col">Other Certificate</th>
+                        </tr>
+                        </thead>
+                        <tbody class="list">
+                        {% for file in shared_media %}
+                            <tr>
+                                <th>
+                                    <span class="name mb-0 text-sm">{{ file.shared_user__username }}</span>
+                                </th>
+                                <td>
+                                    {% if file.resume %}
+                                        <a href="{% url 'view_files' file.resume %}"
+                                           target="_blank">{{ file.resume |cut:'resume/' }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if file.internship_certificate %}
+                                        <a href="{% url 'view_files' file.internship_certificate %}"
+                                           target="_blank">{{ file.internship_certificate |cut:'internship_certificate/' }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if file.courses_completed %}
+                                        <a href="{% url 'view_files' file.courses_completed %}"
+                                           target="_blank">{{ file.courses_completed |cut:'courses_completed/' }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if file.other_certificate %}
+                                        <a href="{% url 'view_files' file.other_certificate %}"
+                                           target="_blank">{{ file.other_certificate |cut:'other_certificate/' }}</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

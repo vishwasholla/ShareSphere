@@ -1,0 +1,120 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} View File List {% endblock title %}
+{% block content %}
+    <style>
+        .checkable-td {
+            cursor: pointer;
+            padding: 10px; /* Add padding for better clickability */
+        }
+
+        .checkable-td:hover {
+            background-color: #f0f0f0; /* Highlight on hover */
+        }
+    </style>
+
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">View Files</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col">
+                <form method="POST" action="{% url 'share_files' pk %}">
+                    {% csrf_token %}
+                    <div class="card">
+                        <!-- Card header -->
+                        <div class="card-header border-0">
+                            <h3 class="mb-0">My Files</h3>
+                        </div>
+                        <!-- Light table -->
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="sort">Resume</th>
+                                    <th scope="col" class="sort">Internship Certificate</th>
+                                    <th scope="col" class="sort">Course Certificate</th>
+                                    <th scope="col">Other Certificate</th>
+                                </tr>
+                                </thead>
+                                <tbody class="list">
+                                {% for file in media %}
+                                    <tr>
+                                        <td class="checkable-td resume">
+                                            {% if file.resume %}
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           value="{{ file.resume }}"
+                                                           id="{{ file.resume }}" name="{{ file.id }}">
+                                                    <label class="form-check-label" for="{{ file.resume }}">
+                                                        {{ file.resume |cut:'resume/' }}
+                                                    </label>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td class="checkable-td internship_certificate">
+                                            {% if file.internship_certificate %}
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           value="{{ file.internship_certificate }}"
+                                                           id="{{ file.internship_certificate }}" name="{{ file.id }}">
+                                                    <label class="form-check-label"
+                                                           for="{{ file.internship_certificate }}">
+                                                        {{ file.internship_certificate |cut:'internship_certificate/' }}
+                                                    </label>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td class="checkable-td courses_completed">
+                                            {% if file.courses_completed %}
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           value="{{ file.courses_completed }}"
+                                                           id="{{ file.courses_completed }}" name="{{ file.id }}">
+                                                    <label class="form-check-label"
+                                                           for="{{ file.courses_completed }}">
+                                                        {{ file.courses_completed |cut:'courses_completed/' }}
+                                                    </label>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td class="checkable-td other_certificate">
+                                            {% if file.other_certificate %}
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           value="{{ file.other_certificate }}"
+                                                           id="{{ file.other_certificate }}" name="{{ file.id }}">
+                                                    <label class="form-check-label"
+                                                           for="{{ file.other_certificate }}">
+                                                        {{ file.other_certificate |cut:'other_certificate/' }}
+                                                    </label>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 text-right mt-4">
+                                <button class="btn btn-md btn-primary" type="submit">Share</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,96 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+{% load static %}
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Dashboard</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-header border-0 col">
+                        <div class="row">
+                            <div class="col-xl-3">
+                                <h3 class="mb-0">Peer List</h3>
+                            </div>
+                            <div class="col-xl-6 mt-1">
+                                <form class="navbar-search navbar-search-light form-inline mr-sm-3"
+                                      id="navbar-search-main">
+                                    <div class="form-group mb-0">
+                                        <div class="input-group input-group-alternative input-group-merge">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                            </div>
+                                            <input class="form-control" placeholder="Search" id="search-input" type="text">
+                                        </div>
+                                    </div>
+                                    <button type="button" class="close" data-action="search-close"
+                                            data-target="#navbar-search-main" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="sort" data-sort="name">Username</th>
+                                <th scope="col" class="sort" data-sort="budget">View Profile</th>
+                                <th scope="col" class="sort" data-sort="status">Share Files</th>
+                            </tr>
+                            </thead>
+                            <tbody class="list">
+                            {% for user in users %}
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <span class="name mb-0 text-sm">{{ user.username }}</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <a href="{% url 'view_profile' user.id %}" class="btn btn-primary btn-sm">View</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                <td>
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <a href="{% url 'share_files' user.id %}" class="btn btn-secondary btn-sm">Share</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+<script src="static/assets/js/home/dashboard.js"></script>
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
